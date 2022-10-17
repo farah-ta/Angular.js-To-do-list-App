@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css">
+</head>
+
+<body>
+<script>
+var app = angular.module("mytodoList", []); 
+app.controller("myCtrl", function($scope) {
+    $scope.products = ["Exercise", "Study", "Grocery"];
+    $scope.addItem = function () {
+        $scope.errortext = "";
+        if (!$scope.addMe) {return;}        
+        if ($scope.products.indexOf($scope.addMe) == -1) {
+            $scope.products.push($scope.addMe);
+        } else {
+            $scope.errortext = "The item is already in your shopping list.";
+        }
+    }
+    $scope.removeItem = function (x) {
+        $scope.errortext = "";    
+        $scope.products.splice(x, 1);
+    }
+});
+</script>
+<script>
+function showAlert()
+{
+var mytext= "Your data will be removed";
+alert(mytext);
+}
+</script>
+
+
+<div class="container-fluid">
+<div ng-app="mytodoList" ng-controller="myCtrl">
+<h1> The TO DO LIST App </h1>
+  <p>This is to do list of </p> <p ng-bind="name" /> </p>
+<p>Name: <input type="text" ng-model="name"></p>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="x in products">{{x}}<span class="btn btn-primary" onclick="showAlert()" ng-click="removeItem($index)">Delete</span></li>
+  </ul>
+  <input ng-model="addMe">
+  <button class="btn btn-success"" ng-click="addItem()">Add</button>
+  <p>{{errortext}}</p> 
+</div>
+</div>
+</body>
+</html>
+
